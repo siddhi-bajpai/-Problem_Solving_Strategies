@@ -1,0 +1,34 @@
+Problem link: https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/1
+
+Brute force:
+We iterate until we have placed all the gas stations(i.e. k times) and in each iteration we tarverse
+the given array and find out the maximum section length, that is the maximum length between any two 
+gas stations using the formula sectionLength=diff/(double)(howMany[i]+1), here howMany is a vector
+that stores the number of placed gas stations between the two indices(i and i+1), and after we have
+the max section length we place the gas station between the indices having the max sec len and increment 
+the count in howMany vector.
+
+After we have successfully placed all the gas stations, we check for the max sec len between any two gas
+stations and return it.
+
+Better: Uses priority queue-
+The property of priority queue that we use here is the largest element is placed at the top.
+
+We declare a pq of pair<double,int>, and we push all the section lengths and the index into the pq:
+for(int i=0;i<n-1;i++){
+    pq.push({stations[i+1]-stations[i],i});
+}
+
+Now, we iterate till all the gas stations are placed that is k number of times, in each iteration, 
+we take te top most element of pq and pop it out. We increment the number of gas stations between that secInd 
+and secInd+1;
+
+Optimised: Uses Binary Search- Coming soon
+Now we again calculate the new section length,
+
+double diff=stations[secInd+1]-stations[secInd];
+double newSecLen=diff/(double)(howMany[secInd]+1);
+
+and push it into the pq.
+
+At the end we return the first part of the topmost element.
